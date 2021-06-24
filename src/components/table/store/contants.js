@@ -1,0 +1,1 @@
+export const CHANGEUSER = 'table/changeuser'
