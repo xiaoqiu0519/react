@@ -7,6 +7,8 @@ const defaultState = {
 const reducer = (state = defaultState,action) =>{
   if(action.type === contants.CHANGEUSER){
     let newData = state.user
+    newData = action.data
+    console.log(newData)
     return{
       user:newData
     }

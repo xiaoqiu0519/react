@@ -1,8 +1,7 @@
+import { combineReducers } from "redux"
 
-import { combineReducers } from 'redux'
-
-import { reducer as TableReducer } from '../components/table/store'
+import {reducer as matchlistReducer} from "../views/matchlist/store"
 
 export default combineReducers({
-  table:TableReducer
+  matchlist:matchlistReducer
 })

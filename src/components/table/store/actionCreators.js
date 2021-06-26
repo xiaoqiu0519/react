@@ -1,6 +1,8 @@
 import * as contants from './contants' 
-export const changeuser = ()=> {
+
+export const changeuser = (data)=> {
   return{
-    type:contants.CHANGEUSER
+    type:contants.CHANGEUSER,
+    data
   }
 }
