@@ -21,7 +21,7 @@ service.interceptors.request.use((config)=> {
 
 service.interceptors.response.use((response)=>{
   let stateCode = +response.data.code
-  if(stateCode === 8888 || stateCode === 8011 || stateCode === 2){
+  if (response.data.code === 20110 || response.data.code === 20111 || response.data.code === 8035 || response.data.code === 8011) {
     store.dispatch({type:'set_token',token:''})
     sessionStorage.setItem('token','')
     message.error('Login is abnormal, please login again');

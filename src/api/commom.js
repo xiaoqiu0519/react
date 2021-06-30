@@ -12,4 +12,7 @@
 import http from './http'
 export const login =(params) => http.post('/login',params)
 
-export const findEnumList = (params)=> http.post('/tcs/common/findEnumList',params)
+export const findCurrentSports = (params)=> http.get('/tcs/common/findCurrentSports',{params})
+
+
+
