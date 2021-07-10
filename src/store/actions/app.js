@@ -1,5 +1,5 @@
-import * as constants from './constant'
-import { findCurrentSports } from '../api/commom'
+import * as constants from '../constant'
+import { findCurrentSports } from '../../api/commom'
 export const getSport = ()=>{
   return (dispatch)=>{
     findCurrentSports({
@@ -14,4 +14,5 @@ export const getSport = ()=>{
     })
   }
 }
-
+export const setToken = token =>({type:constants.SET_TOKEN,token})
+export const actionCreators = () =>({type:constants.GET_SPORT})

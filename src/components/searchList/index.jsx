@@ -1,28 +1,26 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
 import { Radio,Input ,Select} from 'antd';
-import  * as actionCreators  from '../../store/actionCreators'
-import { validUAllnum } from '../../utils'
+import  { getSport } from '../../store/actions/app'
+import { uPosIntPattern } from '../../utils/validReg'
 import './index.less'
 const searchList = class searchList extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      matchId:'',
-      matchQueryType:1,
-      sportId:''
-    }
+  state = {
+    matchId:'',
+    matchQueryType:1,
+    sportId:''
   }
-  handleSizeChange = (e) =>{
-    this.setState({ matchQueryType: e.target.value });
-    this.props.init(this.state)
+  handleSizeChange = async (e) =>{
+    await this.setState({ matchQueryType: e.target.value });
+    await this.props.init(this.state)
   }
   handleChange = async (value)=>{
     await this.setState({ sportId: value });
     await this.props.init(this.state)
   }
-  blurInput = ()=>{
-    this.props.init(this.state)
+  changeInput = (e)=>{
+    let value = e.target.value.replace(uPosIntPattern, '')
+    this.setState({ matchId: value })
   }
   componentDidMount(){
     if(JSON.stringify(this.props.sportArr) === '{}'){
@@ -54,7 +52,7 @@ const searchList = class searchList extends Component {
         </nav>
         <nav className='MatchId'>
           <label>Match ID: </label>
-          <Input defaultValue={matchId} style={{ width: 180 }} onChange={(e)=>validUAllnum(this,'matchId',e.target.value)} onBlur={this.blurInput} placeholder="MatchId" />
+          <Input value={matchId} defaultValue={matchId} style={{ width: 180 }} ref={this.myRef} onChange={this.changeInput} placeholder="MatchId" />
         </nav>
         <nav className='sportId'>
           <label>Sport: </label>
@@ -71,17 +69,11 @@ const searchList = class searchList extends Component {
     )
   }
 }
-const mapState =(state)=>{
-  return{
+export default connect(
+  state=>({
     sportArr:state.app.sportArr
+  }),
+  {
+    getSport
   }
-}
-const mapDispatch =(dispatch)=>{
-  return{
-    getSport(){
-      // 获取运动类型，需要传递的是一个对象，此处 actionCreators.getSport() 返回的是一个函数需要使用中间件处理
-      dispatch(actionCreators.getSport())
-    }
-  }
-}
-export default connect(mapState,mapDispatch)(searchList)
+)(searchList)

@@ -2,6 +2,7 @@ import React ,{ Component } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { login } from '../../api/commom'
+import { setToken } from '../../store/actions/app'
 class Index extends Component{
   render(){
     const { setToken } = this.props
@@ -11,12 +12,11 @@ class Index extends Component{
         name:name,
         googleCode:1244,
         systemId:2,
-      }).then(res=>{
-        console.log(res)
+      }).then(async res=>{
         if(res.code === 0){
-          console.log(23434)
-          setToken(res.data.token)
-          this.props.history.push('/matchlist')
+          await sessionStorage.setItem('token',res.data.token)
+          await setToken(res.data.token)
+          this.props.history.push('/match/matchlist')
         }
       })
     };
@@ -89,20 +89,9 @@ class Index extends Component{
     )
   }
 }
-const mapStateToProps = (state)=>{
-  return{
+export default connect(
+  state=>({
     token:state.app.token
-  }
-}
-const mapDispathToProps = (dispatch)=>{
-  return{
-    setToken(token){
-      dispatch({
-        type:'set_token',
-        token
-      })
-      sessionStorage.setItem('token',token)
-    }
-  }
-}
-export default connect(mapStateToProps,mapDispathToProps)(Index)
+  }),
+  {setToken}
+)(Index)

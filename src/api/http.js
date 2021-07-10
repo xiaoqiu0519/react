@@ -1,8 +1,6 @@
 import axios from 'axios'
 import store from '../store/index'
-import {BrowserRouter} from 'react-router-dom'
 import { message } from 'antd';
-const router = new BrowserRouter()
 
 const service = axios.create({
   baseURL:'http://prlegw.test-newsports.com/',
@@ -16,6 +14,7 @@ service.interceptors.request.use((config)=> {
   }
   return config;
 }, function (error) {
+  message.error(error);
   return Promise.reject(error);
 });
 
@@ -24,16 +23,15 @@ service.interceptors.response.use((response)=>{
   if (response.data.code === 20110 || response.data.code === 20111 || response.data.code === 8035 || response.data.code === 8011) {
     store.dispatch({type:'set_token',token:''})
     sessionStorage.setItem('token','')
+    window.location.href='/login'
     message.error('Login is abnormal, please login again');
-    setTimeout(()=>{
-      router.history.push('/login')
-    },2000)
   }else if(stateCode !== 0){
     message.error(response.data.message);
   }
   return response.data;
 },(error)=>{
   console.log(error)
+  message.error(error);
   return Promise.reject(error);
 })
 

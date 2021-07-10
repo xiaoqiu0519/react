@@ -1,11 +1,11 @@
-import { combineReducers } from "redux"
-import * as constants from "./constant"
-import {reducer as matchlistReducer} from "../views/matchlist/store"
-const appdefaultReducer = {
+import { combineReducers } from 'redux'
+import * as constants from '../constant'
+
+const appReducersdefault = {
   token:sessionStorage.getItem('token') || '',
   sportArr:{}
 }
-const appReducer = (state=appdefaultReducer,action)=>{
+const appReducers = (state=appReducersdefault,action)=>{
   switch(action.type){
     case constants.SET_TOKEN:
       return Object.assign({
@@ -21,7 +21,7 @@ const appReducer = (state=appdefaultReducer,action)=>{
       return state
   }
 }
+
 export default combineReducers({
-  app:appReducer,
-  matchlist:matchlistReducer
+  app:appReducers
 })

@@ -1,24 +1,19 @@
-import React, { Component } from 'react'
-import { BrowserRouter,Switch ,Route} from 'react-router-dom'
+import React, { Component ,lazy,Suspense} from 'react'
+import { Switch ,Route} from 'react-router-dom'
 import { Provider } from 'react-redux';
-// import RouterView from './router/index'
 import store from './store';
-import Login from './views/login'
-import Mathclist from './views/matchlist'
-import Matchpoll from './views/matchpoll'
+const Login = lazy(()=>import('./views/login'))
+const Comtainer = lazy(()=>import('./views/container'))
 export default class App extends Component {
   render() {
-    // console.log(RouterView())
-    // const token = store.getState().app.token
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <Suspense fallback={<h1>loading...</h1>}>
           <Switch>
-            <Route path='/login' exact component={Login}></Route>
-            <Route path='/matchlist' exact component={Mathclist}></Route>
-            <Route path='/Matchpoll' exact component={Matchpoll}></Route>
+            <Route path='/login' key='/login' component={Login}></Route>
+            <Route path='/' key='/' component={Comtainer}></Route>
           </Switch>
-        </BrowserRouter>
+        </Suspense>
       </Provider>
     )
   }

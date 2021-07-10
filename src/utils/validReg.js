@@ -23,7 +23,7 @@ export const uAllnum = /^[0-9]+\.?[0-9]*$/
 //正数正则
 export const uPosPattern = /^\d*\.?\d+$/;
 //正整数正则
-export const uPosIntPattern = /^\d+$/;
+export const uPosIntPattern = /[^\d]/;
 //负数正则
 export const uNegPattern = /^-\d*\.?\d+$/;
 //负整数正则
