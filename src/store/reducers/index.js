@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import * as constants from '../constant'
 
 const appReducersdefault = {
-  loading:true,
+  loading:false,
   token:sessionStorage.getItem('token') || '',
   sportArr:{}
 }

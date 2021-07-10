@@ -15,5 +15,4 @@ export const getSport = ()=>{
   }
 }
 export const setToken = token =>({type:constants.SET_TOKEN,token})
-export const actionCreators = () =>({type:constants.GET_SPORT})
 export const changeLoading = (flag) =>({type:constants.CHNAGE_LOADING,flag})

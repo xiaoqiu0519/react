@@ -1,10 +1,10 @@
 import axios from 'axios'
 import store from '../store/index'
 import { message } from 'antd';
-
+import { changeLoading } from '../store/actions/app'
 const service = axios.create({
   baseURL:'http://prlegw.test-newsports.com/',
-  timeout:5000
+  timeout:1000
 })
 service.interceptors.request.use((config)=> {
   const token = sessionStorage.getItem('token')
@@ -14,7 +14,8 @@ service.interceptors.request.use((config)=> {
   }
   return config;
 }, function (error) {
-  message.error(error);
+  message.error(error.message);
+  store.dispatch(changeLoading(false))
   return Promise.reject(error);
 });
 
@@ -30,7 +31,8 @@ service.interceptors.response.use((response)=>{
   }
   return response.data;
 },(error)=>{
-  message.error(error);
+  message.error(error.message);
+  store.dispatch(changeLoading(false))
   return Promise.reject(error);
 })
 
