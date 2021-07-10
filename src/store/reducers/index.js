@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import * as constants from '../constant'
 
 const appReducersdefault = {
+  loading:true,
   token:sessionStorage.getItem('token') || '',
   sportArr:{}
 }
@@ -16,6 +17,11 @@ const appReducers = (state=appReducersdefault,action)=>{
       return Object.assign({
         ...state,
         sportArr:action.sportArr
+      })
+    case constants.CHNAGE_LOADING:
+      return Object.assign({
+        ...state,
+        loading:action.flag
       })
     default :
       return state

@@ -30,7 +30,6 @@ service.interceptors.response.use((response)=>{
   }
   return response.data;
 },(error)=>{
-  console.log(error)
   message.error(error);
   return Promise.reject(error);
 })

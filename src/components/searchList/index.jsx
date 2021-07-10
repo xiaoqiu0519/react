@@ -31,7 +31,7 @@ const searchList = class searchList extends Component {
   render() {
     const { matchQueryType ,matchId} = this.state
     const { Option } = Select;
-    const { sportArr } = this.props
+    const { sportArr ,init} = this.props
     const groupTime = [
       {code:1,value:'Live'},
       {code:2,value:'Today'},
@@ -52,11 +52,11 @@ const searchList = class searchList extends Component {
         </nav>
         <nav className='MatchId'>
           <label>Match ID: </label>
-          <Input value={matchId} defaultValue={matchId} style={{ width: 180 }} ref={this.myRef} onChange={this.changeInput} placeholder="MatchId" />
+          <Input value={matchId} defaultValue={matchId} style={{ width: 180 }} onBlur={()=>init(this.state)} onChange={this.changeInput} placeholder="MatchId" />
         </nav>
         <nav className='sportId'>
           <label>Sport: </label>
-          <Select defaultValue="score" style={{ width: 180 }} onChange={this.handleChange}>
+          <Select placeholder='select' style={{ width: 180 }} onChange={this.handleChange}>
             {
               Object.keys(sportArr).map(key=>{
                 let item = sportArr[key]
