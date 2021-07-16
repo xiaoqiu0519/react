@@ -19,7 +19,7 @@ class index extends Component{
     React.changeLoading(true)
     findRcMatchList({
       size:20,
-      pages:1,
+      current:1,
       matchId,
       sportId,
       matchQueryType,
@@ -45,7 +45,7 @@ class index extends Component{
     const { tableData,pagination }= this.state
     return(
       <Fragment>
-        <SearchList  init={this.getSportList}></SearchList>
+        <SearchList init={this.getSportList}></SearchList>
         <TableList init={this.getSportList} data={tableData} pagination={pagination}></TableList>
       </Fragment>
     )

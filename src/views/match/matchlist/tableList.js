@@ -1,3 +1,7 @@
+/**
+ * matchList 搜索条件使用redux 统一封装，matchPoll将使用ref 获取搜索条件
+ * 
+ */
 import React ,{PureComponent} from 'react'
 import MyTable from '../../../components/table/index'
 import {
@@ -18,16 +22,10 @@ class tableList extends PureComponent{
   state = {
     selectedRowKeys: [],
   };
+  MyTableRef = React.createRef()
   onSelectChange = selectedRowKeys => {
     this.setState({ selectedRowKeys });
-    console.log(selectedRowKeys)
   };
-  handleTableChange = e =>{
-    this.props.init({
-      size:e.pageSize,
-      pages:e.current
-    })
-  }
   goTo = (type,row)=>{
     this.props.history.push('/trading/task-center')
   }
@@ -43,7 +41,6 @@ class tableList extends PureComponent{
         }).then(res=>{
 
         })
-        console.log('OK');
       },
       onCancel() {
         console.log('Cancel');
@@ -115,7 +112,7 @@ class tableList extends PureComponent{
     ]
     const data = this.props.data.records
     const {selectedRowKeys} = this.state
-    const { pagination } = this.props
+    const { pagination,init} = this.props
     const tableHeight = document.body.clientHeight - 180
     const rowSelection = {
       selectedRowKeys,
@@ -124,11 +121,12 @@ class tableList extends PureComponent{
     return(
       <>
         <MyTable
+          ref={this.MyTableRef}
           className='MatchListTable'
           bordered
+          init={init}
           rowSelection={rowSelection}
           rowKey='matchId'
-          onChange={this.handleTableChange}
           pagination={pagination}
           scroll={{ y:  tableHeight}}
           columns={columns} 
