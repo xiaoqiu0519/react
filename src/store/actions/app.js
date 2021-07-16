@@ -8,11 +8,11 @@ export const getSport = ()=>{
       if(res.code === 0){
         dispatch({
           type:constants.GET_SPORT,
-          sportArr:res.data
+          data:res.data
         })
       }
     })
   }
 }
-export const setToken = token =>({type:constants.SET_TOKEN,token})
-export const changeLoading = (flag) =>({type:constants.CHNAGE_LOADING,flag})
+export const setToken = data =>({type:constants.SET_TOKEN,data})
+export const changeLoading = data =>({type:constants.CHNAGE_LOADING,data})

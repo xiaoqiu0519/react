@@ -26,9 +26,10 @@ class Index extends Component{
           <div style={{background:'#1DA57A',height:'10px'}}></div>
           <Menu
             onClick={this.handleClick}
-            style={{ width: 256 }}
+            style={{ width: 256 ,overflow:'auto'}}
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[current]}
+            className={'menucont'}
             mode="inline"
           >
             {

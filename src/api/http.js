@@ -4,7 +4,7 @@ import { message } from 'antd';
 import { changeLoading } from '../store/actions/app'
 const service = axios.create({
   baseURL:'http://prlegw.test-newsports.com/',
-  timeout:1000
+  timeout:10000
 })
 service.interceptors.request.use((config)=> {
   const token = sessionStorage.getItem('token')
@@ -22,10 +22,10 @@ service.interceptors.request.use((config)=> {
 service.interceptors.response.use((response)=>{
   let stateCode = +response.data.code
   if (response.data.code === 20110 || response.data.code === 20111 || response.data.code === 8035 || response.data.code === 8011) {
+    message.error('Login is abnormal, please login again');
     store.dispatch({type:'set_token',token:''})
     sessionStorage.setItem('token','')
-    window.location.href='/login'
-    message.error('Login is abnormal, please login again');
+    setTimeout(()=>{window.location.href='/login'},1500)
   }else if(stateCode !== 0){
     message.error(response.data.message);
   }

@@ -1,3 +1,6 @@
 export const SET_TOKEN = 'app/set_token'
 export const GET_SPORT = 'app/get_sport'
 export const CHNAGE_LOADING = 'app/change_loading'
+export const CHANGE_INPUT = 'change_input'
+export const HANDLE_CHANGE = 'handle_hange'
+export const HANDLE_RADIO_CHANGE = 'handle_radio_change'

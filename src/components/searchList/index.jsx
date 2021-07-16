@@ -1,48 +1,47 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react'
+import React, { Component} from 'react'
 import { Radio,Input ,Select} from 'antd';
 import  { getSport } from '../../store/actions/app'
+import { 
+  handleRadioChange,
+  handleChange,
+  changeInput
+} from '../../store/actions/searchlist'
 import { uPosIntPattern } from '../../utils/validReg'
+import { groupTime } from '../../utils/contants'
 import './index.less'
-const searchList = class searchList extends Component {
-  state = {
-    matchId:'',
-    matchQueryType:1,
-    sportId:''
-  }
-  handleSizeChange = async (e) =>{
-    await this.setState({ matchQueryType: e.target.value });
-    await this.props.init(this.state)
+let SearchList = class searchList extends Component {
+  // state = {
+  //   matchId:'',
+  //   matchQueryType:1,
+  //   sportId:''
+  // }
+  handleRadioChange = async (e) =>{
+    await this.props.handleRadioChange(e.target.value)
+    await this.props.init()
   }
   handleChange = async (value)=>{
-    await this.setState({ sportId: value });
-    await this.props.init(this.state)
+    // await this.setState({ sportId: value });
+    await this.props.handleChange(value)
+    await this.props.init()
   }
   changeInput = (e)=>{
     let value = e.target.value.replace(uPosIntPattern, '')
-    this.setState({ matchId: value })
+    this.props.changeInput(value)
   }
   componentDidMount(){
     if(JSON.stringify(this.props.sportArr) === '{}'){
       this.props.getSport()
     }
-    this.props.init(this.state)
+    this.props.init()
   }
   render() {
-    const { matchQueryType ,matchId} = this.state
     const { Option } = Select;
-    const { sportArr ,init} = this.props
-    const groupTime = [
-      {code:1,value:'Live'},
-      {code:2,value:'Today'},
-      {code:3,value:'Early'},
-      {code:4,value:'Yesterday'},
-      {code:5,value:'Custom'}
-    ]
+    const { sportArr ,matchQueryType,matchId,init} = this.props
     return (
       <div className='search_list'>
         <nav className='groupTime'>
-          <Radio.Group value={matchQueryType} onChange={this.handleSizeChange}>
+          <Radio.Group value={matchQueryType} onChange={this.handleRadioChange}>
             {
               groupTime.map(item=>{
                 return <Radio.Button key={item.code} value={item.code}>{item.value}</Radio.Button>
@@ -71,9 +70,15 @@ const searchList = class searchList extends Component {
 }
 export default connect(
   state=>({
-    sportArr:state.app.sportArr
+    sportArr:state.app.sportArr,
+    matchId:state.searchList.matchId,
+    sportId:state.searchList.matchId,
+    matchQueryType:state.searchList.matchQueryType,
   }),
   {
-    getSport
+    getSport,
+    handleRadioChange,
+    handleChange,
+    changeInput
   }
-)(searchList)
+)(SearchList)
