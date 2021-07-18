@@ -11,17 +11,11 @@ import { uPosIntPattern } from '../../utils/validReg'
 import { groupTime } from '../../utils/contants'
 import './index.less'
 let SearchList = class searchList extends Component {
-  // state = {
-  //   matchId:'',
-  //   matchQueryType:1,
-  //   sportId:''
-  // }
   handleRadioChange = async (e) =>{
     await this.props.handleRadioChange(e.target.value)
     await this.props.init()
   }
   handleChange = async (value)=>{
-    // await this.setState({ sportId: value });
     await this.props.handleChange(value)
     await this.props.init()
   }

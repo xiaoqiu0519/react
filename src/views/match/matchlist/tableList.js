@@ -22,7 +22,6 @@ class tableList extends PureComponent{
   state = {
     selectedRowKeys: [],
   };
-  MyTableRef = React.createRef()
   onSelectChange = selectedRowKeys => {
     this.setState({ selectedRowKeys });
   };
@@ -121,7 +120,6 @@ class tableList extends PureComponent{
     return(
       <>
         <MyTable
-          ref={this.MyTableRef}
           className='MatchListTable'
           bordered
           init={init}
