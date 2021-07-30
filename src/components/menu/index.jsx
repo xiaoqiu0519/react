@@ -20,36 +20,30 @@ class Index extends Component{
     const {current} = this.state
     const defaultOpenKeys = current.match(/.*\//)[0].slice(0,-1)
     return(
-      <Fragment>
-        <div className='MenuList'>
-          <h1>菜单导航</h1>
-          <div style={{background:'#1DA57A',height:'10px'}}></div>
-          <Menu
-            onClick={this.handleClick}
-            style={{ width: 256 ,overflow:'auto'}}
-            defaultOpenKeys={[defaultOpenKeys]}
-            selectedKeys={[current]}
-            className={'menucont'}
-            mode="inline"
-          >
-            {
-              routers.map((item)=>{
-                return (
-                  <SubMenu 
-                  key={item.path} 
-                  title={<span>{item.name}</span>}>
-                    {
-                      item.children.map(list=>{
-                        return <Menu.Item key={list.path}>{list.name}</Menu.Item>
-                      })
-                    }
-                  </SubMenu>
-                )
-              })
-            }
-          </Menu>
-        </div>
-      </Fragment>
+      <div className='MenuList'>
+        <h1>菜单导航</h1>
+        <div style={{background:'#1DA57A',height:'10px'}}></div>
+        <Menu
+          onClick={this.handleClick}
+          style={{ width: 256 ,overflow:'auto'}}
+          defaultOpenKeys={[defaultOpenKeys]}
+          selectedKeys={[current]}
+          className={'menucont'}
+          mode="inline"
+        >
+          {
+            routers.map((item)=>{
+              return (
+                <SubMenu key={item.path} title={<span>{item.name}</span>}>
+                  {
+                    item.children.map(list=> <Menu.Item key={list.path}>{list.name}</Menu.Item>)
+                  }
+                </SubMenu>
+              )
+            })
+          }
+        </Menu>
+      </div>
     )
   }
 }

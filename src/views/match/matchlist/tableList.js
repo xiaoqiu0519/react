@@ -85,7 +85,7 @@ class tableList extends PureComponent{
       {
         title: 'Official Time / Running Time',
         width:140,
-        render:(text,record)=>{
+        render:(_,record)=>{
           return(
             <div className='OfficialRunning'>
               <p>{parseTime(record.openTime)}</p>
